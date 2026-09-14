@@ -1,0 +1,15 @@
+{
+  "description": "Send desktop notifications when Claude Code needs your attention. Transmitted as a terminal escape sequence, so it works even when Claude runs over SSH. Requires an OSC 9-capable local terminal (e.g. iTerm2); in tmux, needs `tmux set -g allow-passthrough all`.",
+  "hooks": {
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "msg='\\033]9;✴️ Claude requires attention\\007'; [ -n \"$TMUX\" ] && msg='\\033Ptmux;\\033'\"$msg\"'\\033\\\\'; printf '%b' \"$msg\" > /dev/tty 2>/dev/null"
+          }
+        ]
+      }
+    ]
+  }
+}
